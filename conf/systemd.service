@@ -1,5 +1,5 @@
 [Unit]
-Description=Small description of the service
+Description=MeshCentral Server
 After=network.target
 
 [Service]
@@ -7,9 +7,13 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__FINALPATH__/
-ExecStart=__FINALPATH__/script
+ExecStart=__NODEJS_PATH__/node __FINALPATH__/node_modules/meshcentral --cert __DOMAIN__
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
+Environment=NODE_ENV=production
+Restart=always
+# Restart service after 10 seconds if node service crashes
+RestartSec=10
 
 # Sandboxing options to harden security
 # Depending on specificities of your service/app, you may need to tweak these 
